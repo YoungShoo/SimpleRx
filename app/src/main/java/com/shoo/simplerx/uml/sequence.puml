@@ -1,0 +1,42 @@
+@startuml
+' http://plantuml.com/skinparam.html
+skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+hide footbox
+
+title Observable.just().subscribe()
+
+participant Observable as OB
+participant "act:Action" as act
+participant "obs:Observable" as Ob
+participant "subs:Subscriber" as Sb
+
+' autonumber
+activate OB
+note over OB: Observable.just()
+OB -> OB: just
+create act
+OB -> act: [new]
+activate act
+act --> OB
+OB -> OB: create
+create Ob
+OB -> Ob: [new]
+deactivate OB
+note over Ob: Observable.subscribe()
+activate Ob
+create Sb
+Ob -> Sb: [new]
+activate Sb
+Sb --> Ob
+Ob -> Ob: subscribe
+Ob -> act: call
+act -> Sb: onNext
+note right: Subscriber.onNext()
+act -> Sb: onComplete
+note right: Subscriber.onCompleted()
+deactivate act
+
+@enduml
